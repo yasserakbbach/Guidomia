@@ -7,6 +7,8 @@ import com.yasserakbbach.guidomia.domain.model.MakeAndModel
 import com.yasserakbbach.guidomia.domain.repository.CarRepository
 import com.yasserakbbach.guidomia.util.Resource
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.channelFlow
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
@@ -16,10 +18,12 @@ class CarRepositoryImpl(
 ) : CarRepository {
 
     override suspend fun getAllCars(): Flow<Resource<List<Car>>> =
-        flow {
-            emit(Resource.Loading())
-            val cars = carDao.getAllCars().map { it.toCarList()}
-            emit(Resource.Success(cars.first()))
+        channelFlow {
+            send(Resource.Loading())
+            val flowListCar = carDao.getAllCars().map { it.toCarList()}
+            flowListCar.collectLatest {
+                send(Resource.Success(it))
+            }
         }
 
     override suspend fun filterCarsByMakeAndModel(makeAndModel: MakeAndModel): Flow<Resource<List<Car>>> =

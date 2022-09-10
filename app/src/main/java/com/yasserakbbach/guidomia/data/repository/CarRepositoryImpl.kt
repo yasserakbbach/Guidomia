@@ -10,7 +10,9 @@ import com.yasserakbbach.guidomia.util.Resource
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.last
 import kotlinx.coroutines.flow.map
 
 class CarRepositoryImpl(
@@ -20,13 +22,10 @@ class CarRepositoryImpl(
     override suspend fun getAllCars(): Flow<Resource<List<Car>>> =
         flow {
             emit(Resource.Loading())
-            delay(Constants.LOAD_CARS_DELAY)
             val cars = carDao.getAllCars().map { entities ->
                 entities.map { it.toCar() }
             }
-            cars.collectLatest {
-                emit(Resource.Success(it))
-            }
+            emit(Resource.Success(cars.first()))
         }
 
     override suspend fun filterCarsByMakeAndModel(makeAndModel: MakeAndModel): Flow<Resource<List<Car>>> {

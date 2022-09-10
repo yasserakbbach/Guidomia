@@ -28,7 +28,7 @@ import com.yasserakbbach.guidomia.util.SampleData
 
 @Composable
 fun CarItem(
-    carUiModel: CarUiModel = SampleData.generateCarUiModel(),
+    carUiModel: CarUiModel,
 ) {
     val context = LocalContext.current
     val image = context.resources.getIdentifier(carUiModel.image, "drawable", context.packageName)

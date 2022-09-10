@@ -1,5 +1,8 @@
 package com.yasserakbbach.guidomia.domain.model
 
+import kotlinx.serialization.Serializable
+
+@Serializable
 data class Car(
     val id: Int,
     val image: String,

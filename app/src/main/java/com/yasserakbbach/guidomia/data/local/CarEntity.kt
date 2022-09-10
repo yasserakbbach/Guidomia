@@ -1,7 +1,11 @@
-package com.yasserakbbach.guidomia.domain.model
+package com.yasserakbbach.guidomia.data.local
 
-data class Car(
-    val id: Int,
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+
+@Entity(tableName = "cars_table")
+data class CarEntity(
+    @PrimaryKey(autoGenerate = true) val id: Int,
     val image: String,
     val customerPrice: Double,
     val make: String,

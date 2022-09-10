@@ -28,3 +28,6 @@ fun CarEntity.toCar(): Car =
         prosList,
         rating,
     )
+
+fun List<CarEntity>.toCarList(): List<Car> =
+    map { it.toCar() }

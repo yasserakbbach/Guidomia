@@ -1,18 +1,14 @@
 package com.yasserakbbach.guidomia.data.repository
 
 import com.yasserakbbach.guidomia.data.local.CarDao
-import com.yasserakbbach.guidomia.data.mapper.toCar
+import com.yasserakbbach.guidomia.data.mapper.toCarList
 import com.yasserakbbach.guidomia.domain.model.Car
 import com.yasserakbbach.guidomia.domain.model.MakeAndModel
 import com.yasserakbbach.guidomia.domain.repository.CarRepository
-import com.yasserakbbach.guidomia.util.Constants
 import com.yasserakbbach.guidomia.util.Resource
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.last
 import kotlinx.coroutines.flow.map
 
 class CarRepositoryImpl(
@@ -22,13 +18,27 @@ class CarRepositoryImpl(
     override suspend fun getAllCars(): Flow<Resource<List<Car>>> =
         flow {
             emit(Resource.Loading())
-            val cars = carDao.getAllCars().map { entities ->
-                entities.map { it.toCar() }
-            }
+            val cars = carDao.getAllCars().map { it.toCarList()}
             emit(Resource.Success(cars.first()))
         }
 
-    override suspend fun filterCarsByMakeAndModel(makeAndModel: MakeAndModel): Flow<Resource<List<Car>>> {
-        TODO("Not yet implemented")
-    }
+    override suspend fun filterCarsByMakeAndModel(makeAndModel: MakeAndModel): Flow<Resource<List<Car>>> =
+        flow {
+            emit(Resource.Loading())
+            val isModelQueryFilled = makeAndModel.model.isNotEmpty()
+            val isMakeQueryFilled = makeAndModel.make.isNotEmpty()
+            val areBothQueriesFilled = isMakeQueryFilled && isModelQueryFilled
+
+            val flowCars = when {
+                areBothQueriesFilled -> carDao.getAllCarsByMakeAndModel(
+                    make = makeAndModel.make,
+                    model = makeAndModel.model,
+                )
+                isModelQueryFilled -> carDao.getAllCarsByModel(makeAndModel.model)
+                isMakeQueryFilled -> carDao.getAllCarsByMake(makeAndModel.make)
+                else -> carDao.getAllCars()
+            }
+
+            emit(Resource.Success(flowCars.first().toCarList()))
+        }
 }

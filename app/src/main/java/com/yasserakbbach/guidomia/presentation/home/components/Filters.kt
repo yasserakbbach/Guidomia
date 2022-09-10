@@ -15,6 +15,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import com.yasserakbbach.guidomia.R
+import com.yasserakbbach.guidomia.presentation.home.HomeViewModel
+import com.yasserakbbach.guidomia.presentation.home.model.HomeEvent
 import com.yasserakbbach.guidomia.ui.theme.DarkGray
 import com.yasserakbbach.guidomia.ui.theme.ExtraSmallPadding
 import com.yasserakbbach.guidomia.ui.theme.NormalPadding
@@ -24,7 +26,10 @@ import com.yasserakbbach.guidomia.ui.theme.SmallPadding
 @Composable
 fun Filters(
     modifier: Modifier,
+    homeViewModel: HomeViewModel,
 ) {
+    val state = homeViewModel.state
+
     Surface(
         shape = MaterialTheme.shapes.medium,
         color = DarkGray,
@@ -39,8 +44,10 @@ fun Filters(
                 modifier = Modifier.padding(start = NormalPadding, top = ExtraSmallPadding),
             )
             TextField(
-                value = "",
-                onValueChange = {},
+                value = state.queryMake,
+                onValueChange = {
+                    homeViewModel.onEvent(HomeEvent.OnMakeChanged(it))
+                },
                 placeholder = {
                     Text(
                         text = stringResource(R.string.home_Screen_filter_by_make),
@@ -55,8 +62,10 @@ fun Filters(
                     .padding(start = NormalPadding, end = NormalPadding),
             )
             TextField(
-                value = "",
-                onValueChange = {},
+                value = state.queryModel,
+                onValueChange = {
+                    homeViewModel.onEvent(HomeEvent.OnModelChanged(it))
+                },
                 placeholder = {
                     Text(
                         text = stringResource(R.string.home_Screen_filter_by_model),

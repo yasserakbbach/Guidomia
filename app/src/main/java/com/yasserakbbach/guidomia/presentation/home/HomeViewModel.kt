@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.yasserakbbach.guidomia.domain.usecase.GetAllCarsUseCase
 import com.yasserakbbach.guidomia.presentation.home.mapper.toCarUiModel
+import com.yasserakbbach.guidomia.presentation.home.model.HomeEvent
 import com.yasserakbbach.guidomia.presentation.home.model.HomeState
 import com.yasserakbbach.guidomia.util.Constants
 import com.yasserakbbach.guidomia.util.Resource
@@ -48,5 +49,25 @@ class HomeViewModel @Inject constructor(
                 }
             }
         }
+    }
+
+    fun onEvent(event: HomeEvent) {
+        when(event) {
+            is HomeEvent.OnCarToggled -> event.updateState()
+            is HomeEvent.OnMakeChanged -> event.updateState()
+            is HomeEvent.OnModelChanged -> event.updateState()
+        }
+    }
+
+    private fun HomeEvent.OnCarToggled.updateState() {
+        state = state.copy(lastSelectedCar = carId)
+    }
+
+    private fun HomeEvent.OnMakeChanged.updateState() {
+        state = state.copy(queryMake = make)
+    }
+
+    private fun HomeEvent.OnModelChanged.updateState() {
+        state = state.copy(queryModel = model)
     }
 }

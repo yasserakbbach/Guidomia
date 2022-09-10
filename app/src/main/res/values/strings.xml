@@ -9,4 +9,6 @@
     <string name="home_Screen_filter_by_make">Any make</string>
     <string name="home_Screen_filter_by_model">Any model</string>
     <string name="car_item_price_label_format">Price %s</string>
+    <string name="car_item_details_pros">Pros :</string>
+    <string name="car_item_details_cons">Cons :</string>
 </resources>

@@ -1,5 +1,7 @@
 package com.yasserakbbach.guidomia.presentation.home.components
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -19,28 +21,32 @@ import com.yasserakbbach.guidomia.R
 import com.yasserakbbach.guidomia.presentation.home.model.CarUiModel
 import com.yasserakbbach.guidomia.ui.theme.DarkGray
 import com.yasserakbbach.guidomia.ui.theme.ExtraSmallPadding
+import com.yasserakbbach.guidomia.ui.theme.LightGray
 import com.yasserakbbach.guidomia.ui.theme.NormalPadding
 import com.yasserakbbach.guidomia.ui.theme.Orange
 import com.yasserakbbach.guidomia.ui.theme.OrangeAlpha50
 import com.yasserakbbach.guidomia.ui.theme.RatingStarSize
 import com.yasserakbbach.guidomia.ui.theme.SmallPadding
-import com.yasserakbbach.guidomia.util.SampleData
 
 @Composable
 fun CarItem(
     carUiModel: CarUiModel,
+    onCarClick: (Int) -> Unit,
 ) {
     val context = LocalContext.current
     val image = context.resources.getIdentifier(carUiModel.image, "drawable", context.packageName)
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(NormalPadding),
+            .padding(NormalPadding)
+            .background(color = LightGray)
+            .clickable { onCarClick(carUiModel.id) },
         verticalAlignment = Alignment.CenterVertically,
     ) {
         AsyncImage(
             model = image,
             contentDescription = carUiModel.model,
+            modifier = Modifier.fillMaxWidth(.25F),
         )
         Column(
             verticalArrangement = Arrangement.Center,

@@ -1,4 +1,4 @@
-package com.yasserakbbach.guidomia.presentation
+package com.yasserakbbach.guidomia.presentation.home.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement

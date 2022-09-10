@@ -1,4 +1,4 @@
-package com.yasserakbbach.guidomia.presentation
+package com.yasserakbbach.guidomia.presentation.home
 
 import androidx.lifecycle.ViewModel
 import com.yasserakbbach.guidomia.domain.usecase.GetAllCarsUseCase

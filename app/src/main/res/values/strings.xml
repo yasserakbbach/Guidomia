@@ -5,4 +5,8 @@
     <string name="home_screen_header_title">Tacoma 2021</string>
     <string name="home_screen_header_subtitle">Get yours now</string>
     <string name="home_screen_header_image_description">Home image header</string>
+    <string name="home_screen_filters_title">Filters</string>
+    <string name="home_Screen_filter_by_make">Any make</string>
+    <string name="home_Screen_filter_by_model">Any model</string>
+    <string name="car_item_price_label_format">Price %s</string>
 </resources>

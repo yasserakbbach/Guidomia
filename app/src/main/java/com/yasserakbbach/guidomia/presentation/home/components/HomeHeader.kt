@@ -1,4 +1,4 @@
-package com.yasserakbbach.guidomia.presentation
+package com.yasserakbbach.guidomia.presentation.home.components
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
@@ -18,7 +18,7 @@ import com.yasserakbbach.guidomia.ui.theme.LargePadding
 
 @Composable
 fun HomeHeader(
-    modifier: Modifier,
+    modifier: Modifier = Modifier,
 ) {
     Box(
         modifier = modifier,

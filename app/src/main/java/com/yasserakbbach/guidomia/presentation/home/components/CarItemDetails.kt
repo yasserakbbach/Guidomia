@@ -26,14 +26,18 @@ fun CarItemDetails(
     carUiModel: CarUiModel,
     modifier: Modifier,
 ) {
+    val prosList = carUiModel.prosList.filter { it.isNotEmpty() }
+    val consList = carUiModel.consList.filter { it.isNotEmpty() }
     Column(
         modifier = modifier.background(color = LightGray),
     ) {
-        Text(
-            text = stringResource(R.string.car_item_details_pros),
-            color = DarkGray,
-        )
-        carUiModel.prosList.forEach {
+        if(prosList.isNotEmpty()) {
+            Text(
+                text = stringResource(R.string.car_item_details_pros),
+                color = DarkGray,
+            )
+        }
+        prosList.forEach {
             Row(
                 modifier = Modifier.padding(start = SmallPadding),
                 verticalAlignment = Alignment.CenterVertically,
@@ -49,11 +53,13 @@ fun CarItemDetails(
                 )
             }
         }
-        Text(
-            text = stringResource(R.string.car_item_details_cons),
-            color = DarkGray,
-        )
-        carUiModel.consList.forEach {
+        if(consList.isNotEmpty()) {
+            Text(
+                text = stringResource(R.string.car_item_details_cons),
+                color = DarkGray,
+            )
+        }
+        consList.forEach {
             Row(
                 modifier = Modifier.padding(start = SmallPadding),
                 verticalAlignment = Alignment.CenterVertically,

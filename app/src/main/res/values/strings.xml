@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Guidomia</string>
+    <string name="home_screen_topbar_title">GUIDOMIA</string>
+    <string name="home_screen_menu_description">Menu</string>
+    <string name="home_screen_header_title">Tacoma 2021</string>
+    <string name="home_screen_header_subtitle">Get yours now</string>
+    <string name="home_screen_header_image_description">Home image header</string>
 </resources>
